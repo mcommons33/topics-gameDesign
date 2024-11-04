@@ -77,7 +77,7 @@
   - Simple aiming with reticle, reload timer for weapons.
  ### Jacob's Comment: How would you have a reticle aiming? I thought it was topdown? So you dont have a POV of your character.
   - Headshots and body shots deal variable damage.
-   ### Jacob's Comment: Same question as above. Should probably remove both of these.
+   ### Jacob's Comment: Same question as above. Should probably remove both of these. I don't like the idea of random criticals, either. Maybe enemies could have a small dot on them, and if you hit that point then it does crit damage? Would add extra skill to the game, probably.
 - **Grenade Throwing**: Limited grenades with an explosion radius, able to damage walls.
 - **Health Recovery**: Healing items activate over time, forcing strategic use mid-combat.
 
