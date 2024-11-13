@@ -5,7 +5,7 @@
 - **Static Map Design**: A single uniform map is used for each game, designed with balanced spawn points for items and resources.
 - **Randomized Start Location**: Each player will spawn in a random location on the same map.
 - **Items and Weapons**:
-  - **Weapons**: Various firearms, melee weapons, and grenades, each with distinct stats (damage, fire rate, range).
+  - **Weapons**: 3 different weapons each with distinct stats (shotgun, rifle, carbines).
   - **Items**: Healing items (e.g., medkits, bandages), armor (helmets, vests), grenades, and resource-gathering tools.
 - **Damage Zone**: Gradually shrinking safe zone starting from the map’s edges, forcing players toward the center.
 - **Resource Gathering and Building**:
@@ -29,13 +29,14 @@
 ## 3. Map Layout and Spawn Points
 
 - Uniform map with randomized item spawn locations and resource zones (wood, stone, steel).
-- Defined high-ground and low-ground areas, adding a strategic advantage in certain locations.
 
 ## 4. In-game Items and Weaponry
 
 - **Randomized Item Spawns**:
-  - Weapons (shotguns, rifles, etc.) spawn at varied map points.
+  - Weapons (shotguns, rifles, etc.) spawn at varied map points. Only 3 different variety
+  - needs to pick up gun-specific ammo
   - Healing items and armor spawn in designated “safe zones” (medical tents, ammo crates).
+  - can only stay for a certain amount of time so players won't just be there the whole time
 - **Item Effects**:
   - Healing items replenish health over time.
   - Armor reduces damage received until its durability is depleted.
@@ -58,12 +59,13 @@
     - **Stone**: Medium durability, moderate availability.
     - **Steel**: Highest durability, scarce.
   - **Destructible Walls**: Bullet impacts reduce wall durability until they collapse.
+  - walls are long, not by blocks
 
 ## 7. Combat Mechanics
 
 - **Shooting and Reloading**:
   - Simple aiming with reticle, reload timer for weapons.
-  - Headshots and body shots deal variable damage.
+  - different guns have different amount of damage
 - **Grenade Throwing**: Limited grenades with an explosion radius, able to damage walls.
 - **Health Recovery**: Healing items activate over time, forcing strategic use mid-combat.
 
