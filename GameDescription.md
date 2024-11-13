@@ -5,7 +5,7 @@
 - **Static Map Design**: A single uniform map is used for each game, designed with balanced spawn points for items and resources.
 - **Randomized Start Location**: Each player will spawn in a random location on the same map.
 - **Items and Weapons**:
-  - **Weapons**: Various firearms, melee weapons, and grenades, each with distinct stats (damage, fire rate, range).
+  - **Weapons**: 3 different weapons each with distinct stats (shotgun, rifle, carbines).
   - **Items**: Healing items (e.g., medkits, bandages), armor (helmets, vests), grenades, and resource-gathering tools.
 - **Damage Zone**: Gradually shrinking safe zone starting from the map’s edges, forcing players toward the center.
 - **Resource Gathering and Building**:
