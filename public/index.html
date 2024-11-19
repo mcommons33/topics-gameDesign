@@ -5,22 +5,15 @@
   <title>Your Battle Royale Game</title>
   <!-- Include Phaser via CDN -->
   <script src="https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.js"></script>
-  <style>
-    input[type="text"] {
-      padding: 10px;
-      font-size: 18px;
-    }
-
-    .phaser-text-button {
-      cursor: pointer;
-    }
-  </style>
 </head>
 <body>
   <!-- The game will be rendered inside this div -->
   <div id="game-container"></div>
 
-  <!-- Your main JavaScript file -->
-  <script src="main.js"></script>
+  <!-- Include your game scripts -->
+  <script src="src/scenes/loginScene.js"></script>
+  <script src="src/scenes/gameLobbyScene.js"></script>
+  <script src="src/scenes/gameScene.js"></script>
+  <script src="src/main.js"></script>
 </body>
 </html>
