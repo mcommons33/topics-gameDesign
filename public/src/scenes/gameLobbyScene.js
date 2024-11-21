@@ -1,5 +1,3 @@
-// gameLobbyScene.js
-
 class GameLobbyScene extends Phaser.Scene {
   constructor() {
     super({ key: 'GameLobbyScene' });
@@ -51,8 +49,13 @@ class GameLobbyScene extends Phaser.Scene {
     // Set up camera to follow the player container
     this.cameras.main.startFollow(this.playerContainer, true, 0.05, 0.05);
 
-    // Set up keyboard input
-    this.cursors = this.input.keyboard.createCursorKeys();
+    // Set up WASD keyboard input
+    this.keys = this.input.keyboard.addKeys({
+      W: Phaser.Input.Keyboard.KeyCodes.W,
+      A: Phaser.Input.Keyboard.KeyCodes.A,
+      S: Phaser.Input.Keyboard.KeyCodes.S,
+      D: Phaser.Input.Keyboard.KeyCodes.D,
+    });
     this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E); // Key to pick up items
     this.keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R); // Key to reload
 
@@ -93,6 +96,46 @@ class GameLobbyScene extends Phaser.Scene {
       .setOrigin(0.5)
       .setScrollFactor(0);
     this.outOfAmmoText.visible = false;
+
+    // Create start game button
+    this.createStartButton();
+  }
+
+  createStartButton() {
+    // Create a styled button
+    const buttonWidth = 200;
+    const buttonHeight = 60;
+    const x = this.cameras.main.width - buttonWidth - 20;
+    const y = 20;
+
+    // Create button background
+    const buttonBackground = this.add.rectangle(x, y, buttonWidth, buttonHeight, 0x4a524f)
+      .setOrigin(0, 0)
+      .setScrollFactor(0)
+      .setInteractive();
+
+    // Add hover effect
+    buttonBackground
+      .on('pointerover', () => buttonBackground.setFillStyle(0x5a625f))
+      .on('pointerout', () => buttonBackground.setFillStyle(0x4a524f))
+      .on('pointerdown', () => {
+        // Transition to the game scene
+        this.scene.start('GameScene');
+      });
+
+    // Add text to button
+    const buttonText = this.add.text(
+      x + buttonWidth / 2,
+      y + buttonHeight / 2,
+      'START GAME',
+      {
+        fontSize: '24px',
+        color: '#ffffff',
+        fontStyle: 'bold'
+      }
+    )
+      .setOrigin(0.5)
+      .setScrollFactor(0);
   }
 
   update(time, delta) {
@@ -102,18 +145,18 @@ class GameLobbyScene extends Phaser.Scene {
     // Stop any previous movement
     body.setVelocity(0);
 
-    // Horizontal movement
-    if (this.cursors.left.isDown) {
-      body.setVelocityX(-this.speed);
-    } else if (this.cursors.right.isDown) {
-      body.setVelocityX(this.speed);
-    }
-
-    // Vertical movement
-    if (this.cursors.up.isDown) {
+    // WASD Movement
+    if (this.keys.W.isDown) {
       body.setVelocityY(-this.speed);
-    } else if (this.cursors.down.isDown) {
+    }
+    if (this.keys.S.isDown) {
       body.setVelocityY(this.speed);
+    }
+    if (this.keys.A.isDown) {
+      body.setVelocityX(-this.speed);
+    }
+    if (this.keys.D.isDown) {
+      body.setVelocityX(this.speed);
     }
 
     // Normalize and scale the velocity so that the player can't move faster diagonally
