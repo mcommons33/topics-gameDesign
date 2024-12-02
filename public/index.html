@@ -4,116 +4,13 @@
     <meta charset="utf-8">
     <title>Battle Royale Game</title>
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
-    <style>
-        body {
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: #000;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <div id="game-container"></div>
-
-    <script>
-        // Game Configuration
-        const GameConfig = {
-            WORLD: {
-                WIDTH: 3200,
-                HEIGHT: 2400,
-            },
-            PLAYER: {
-                SPEED: 300,
-                SIZE: 20,
-            },
-        };
-
-        // Scene Definitions
-        class MenuScene extends Phaser.Scene {
-            constructor() {
-                super({ key: 'MenuScene' });
-            }
-
-            create() {
-                const text = this.add.text(400, 300, 'Click to Start', {
-                    fontSize: '32px',
-                    fill: '#fff'
-                }).setOrigin(0.5);
-
-                text.setInteractive();
-                text.on('pointerdown', () => {
-                    this.scene.start('GameScene');
-                });
-            }
-        }
-
-        class GameScene extends Phaser.Scene {
-            constructor() {
-                super({ key: 'GameScene' });
-            }
-
-            create() {
-                // Set up world bounds
-                this.physics.world.setBounds(0, 0, GameConfig.WORLD.WIDTH, GameConfig.WORLD.HEIGHT);
-
-                // Create player
-                this.player = this.add.circle(400, 300, GameConfig.PLAYER.SIZE, 0x00ff00);
-                this.physics.add.existing(this.player);
-                this.player.body.setCollideWorldBounds(true);
-
-                // Set up camera
-                this.cameras.main.setBounds(0, 0, GameConfig.WORLD.WIDTH, GameConfig.WORLD.HEIGHT);
-                this.cameras.main.startFollow(this.player);
-
-                // Set up keyboard controls
-                this.keys = this.input.keyboard.addKeys({
-                    W: 'W',
-                    A: 'A',
-                    S: 'S',
-                    D: 'D'
-                });
-            }
-
-            update() {
-                // Handle player movement
-                const speed = GameConfig.PLAYER.SPEED;
-                
-                if (this.keys.A.isDown) {
-                    this.player.x -= speed * 0.016;
-                }
-                if (this.keys.D.isDown) {
-                    this.player.x += speed * 0.016;
-                }
-                if (this.keys.W.isDown) {
-                    this.player.y -= speed * 0.016;
-                }
-                if (this.keys.S.isDown) {
-                    this.player.y += speed * 0.016;
-                }
-            }
-        }
-
-        // Game configuration
-        const config = {
-            type: Phaser.AUTO,
-            width: 800,
-            height: 600,
-            parent: 'game-container',
-            physics: {
-                default: 'arcade',
-                arcade: {
-                    gravity: { y: 0 },
-                    debug: false
-                }
-            },
-            scene: [MenuScene, GameScene]
-        };
-
-        // Create game instance
-        const game = new Phaser.Game(config);
-    </script>
+    <div id="game"></div>
+    <script src="js/scenes/loginScene.js"></script>
+    <script src="js/scenes/lobbyScene.js"></script>
+    <script src="js/scenes/gameScene.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
