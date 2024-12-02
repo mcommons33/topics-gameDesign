@@ -7,48 +7,113 @@
     <style>
         body {
             margin: 0;
-            background: #000;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-        }
-        #game-container {
-            width: 800px;
-            height: 600px;
+            background: #000;
         }
     </style>
 </head>
 <body>
     <div id="game-container"></div>
 
-    <!-- Config -->
-    <script src="src/config/gameConfig.js"></script>
-    <script src="src/config/weaponConfig.js"></script>
+    <script>
+        // Game Configuration
+        const GameConfig = {
+            WORLD: {
+                WIDTH: 3200,
+                HEIGHT: 2400,
+            },
+            PLAYER: {
+                SPEED: 300,
+                SIZE: 20,
+            },
+        };
 
-    <!-- Base Entity -->
-    <script src="src/entities/Entity.js"></script>
+        // Scene Definitions
+        class MenuScene extends Phaser.Scene {
+            constructor() {
+                super({ key: 'MenuScene' });
+            }
 
-    <!-- Game Entities -->
-    <script src="src/entities/Player.js"></script>
-    <script src="src/entities/Weapon.js"></script>
-    <script src="src/entities/PowerUp.js"></script>
+            create() {
+                const text = this.add.text(400, 300, 'Click to Start', {
+                    fontSize: '32px',
+                    fill: '#fff'
+                }).setOrigin(0.5);
 
-    <!-- Utils -->
-    <script src="src/utils/TerrainGenerator.js"></script>
+                text.setInteractive();
+                text.on('pointerdown', () => {
+                    this.scene.start('GameScene');
+                });
+            }
+        }
 
-    <!-- Systems -->
-    <script src="src/systems/InputManager.js"></script>
-    <script src="src/systems/StateManager.js"></script>
-    <script src="src/systems/ParticleManager.js"></script>
+        class GameScene extends Phaser.Scene {
+            constructor() {
+                super({ key: 'GameScene' });
+            }
 
-    <!-- Scenes -->
-    <script src="src/scenes/LoadScene.js"></script>
-    <script src="src/scenes/MenuScene.js"></script>
-    <script src="src/scenes/GameLobbyScene.js"></script>
-    <script src="src/scenes/GameScene.js"></script>
+            create() {
+                // Set up world bounds
+                this.physics.world.setBounds(0, 0, GameConfig.WORLD.WIDTH, GameConfig.WORLD.HEIGHT);
 
-    <!-- Main Game -->
-    <script src="src/main.js"></script>
+                // Create player
+                this.player = this.add.circle(400, 300, GameConfig.PLAYER.SIZE, 0x00ff00);
+                this.physics.add.existing(this.player);
+                this.player.body.setCollideWorldBounds(true);
+
+                // Set up camera
+                this.cameras.main.setBounds(0, 0, GameConfig.WORLD.WIDTH, GameConfig.WORLD.HEIGHT);
+                this.cameras.main.startFollow(this.player);
+
+                // Set up keyboard controls
+                this.keys = this.input.keyboard.addKeys({
+                    W: 'W',
+                    A: 'A',
+                    S: 'S',
+                    D: 'D'
+                });
+            }
+
+            update() {
+                // Handle player movement
+                const speed = GameConfig.PLAYER.SPEED;
+                
+                if (this.keys.A.isDown) {
+                    this.player.x -= speed * 0.016;
+                }
+                if (this.keys.D.isDown) {
+                    this.player.x += speed * 0.016;
+                }
+                if (this.keys.W.isDown) {
+                    this.player.y -= speed * 0.016;
+                }
+                if (this.keys.S.isDown) {
+                    this.player.y += speed * 0.016;
+                }
+            }
+        }
+
+        // Game configuration
+        const config = {
+            type: Phaser.AUTO,
+            width: 800,
+            height: 600,
+            parent: 'game-container',
+            physics: {
+                default: 'arcade',
+                arcade: {
+                    gravity: { y: 0 },
+                    debug: false
+                }
+            },
+            scene: [MenuScene, GameScene]
+        };
+
+        // Create game instance
+        const game = new Phaser.Game(config);
+    </script>
 </body>
 </html>
