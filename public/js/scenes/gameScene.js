@@ -9,6 +9,14 @@ class GameScene extends Phaser.Scene {
         this.isReloading = false;
     }
 
+    preload() {
+        // Load images
+        this.load.image('rifle', 'assets/rifle.png');
+        this.load.image('player_unarmed', 'assets/player_unarmed.png');
+        this.load.image('player_armed', 'assets/player_armed.png');
+        this.load.image('ammo', 'assets/ammo.png');
+    }
+
     create() {
         // Set world bounds
         this.physics.world.setBounds(0, 0, 1600, 1200);
@@ -45,9 +53,9 @@ class GameScene extends Phaser.Scene {
 
     createPlayer() {
         // Create player sprite
-        this.player = this.add.circle(800, 600, 20, 0x00ff00);
-        this.physics.add.existing(this.player);
-        this.player.body.setCollideWorldBounds(true);
+        this.player = this.physics.add.sprite(800, 600, 'player_unarmed');
+        this.player.setCollideWorldBounds(true);
+        this.player.setScale(0.03);
 
         // Add player name
         const username = localStorage.getItem('username') || 'Player';
@@ -60,6 +68,8 @@ class GameScene extends Phaser.Scene {
         this.player.health = 100;
         this.player.ammo = 0;
         this.player.maxAmmo = 30;
+
+        this.player.hasGun = false;
     }
 
     createTerrain() {
@@ -83,10 +93,11 @@ class GameScene extends Phaser.Scene {
     }
 
     spawnWeapons() {
-        const rifle = this.add.rectangle(400, 400, 30, 10, 0xff0000);
-        this.physics.add.existing(rifle);
+        const rifle = this.physics.add.sprite(400, 400, 'rifle');
         rifle.gunType = 'rifle';
         this.weapons.set(rifle, { type: 'rifle', ammo: 30 });
+
+        rifle.setScale(0.1);
 
         this.physics.add.overlap(this.player, rifle, this.collectWeapon, null, this);
     }
@@ -97,8 +108,8 @@ class GameScene extends Phaser.Scene {
         for (let i = 0; i < 5; i++) {
             const x = Phaser.Math.Between(100, 1500);
             const y = Phaser.Math.Between(100, 1100);
-            const ammoPack = this.add.rectangle(x, y, 15, 15, 0x0000ff);
-            this.physics.add.existing(ammoPack);
+            const ammoPack = this.physics.add.sprite(x, y, 'ammo');
+            ammoPack.setScale(0.1);
             ammoPack.ammoAmount = 30;
             this.ammoPacks.add(ammoPack);
         }
@@ -119,6 +130,10 @@ class GameScene extends Phaser.Scene {
             this.player.ammo = this.currentWeapon.ammo;
             this.updateAmmoText();
             weapon.destroy();
+
+            this.player.setTexture('player_armed');
+            this.player.hasGun = true;
+            this.player.setScale(0.3);
         }
     }
 
