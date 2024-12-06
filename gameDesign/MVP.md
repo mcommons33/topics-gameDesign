@@ -137,22 +137,22 @@
 # MVP Implementation Plan
 
 ## Day 1-2 (Core Framework)
-- Map (all P0)
-- Lobby (all P0)
+- Map (all P0) - completed
+- Lobby (all P0) - completed
 
 ## Day 3
-- Player (all P0)
-- PlayerProfile (all P0)
-- Guns (all P0, if there is time)
+- Player (all P0) - completed
+- PlayerProfile (all P0) - completed
+- Guns (all P0, if there is time) - completed
 
 ## Day 4
-- Guns (all P0)
-- HealingItem (if there is time)
+- Guns (all P0) - 1 done
+- HealingItem (if there is time) - to be completed
 
 ## Day 5 (Enhancement & Testing)
-- HealingItem
-- Within the classes all the P1 features.
-- Final testing and refinement.
+- HealingItem - to be completed
+- Within the classes all the P1 features. - to be completed
+- Final testing and refinement. - to be completed
 
 # Completed Items (by Nathaniel)
 - Added skins for the guns, ammo, armed player, and unarmed player
