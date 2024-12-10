@@ -55,8 +55,11 @@ class GameScene extends Phaser.Scene {
         // Create player sprite
         this.player = this.physics.add.sprite(800, 600, 'player_unarmed');
         this.player.setCollideWorldBounds(true);
-        this.player.setScale(0.03);
-
+        
+        // Set consistent collision box size regardless of sprite
+        this.player.setSize(30, 30); // Fixed collision box size
+        this.player.setScale(0.03); // Initial visual scale
+        
         // Add player name
         const username = localStorage.getItem('username') || 'Player';
         this.playerNameText = this.add.text(800, 570, username, {
@@ -68,7 +71,6 @@ class GameScene extends Phaser.Scene {
         this.player.health = 100;
         this.player.ammo = 0;
         this.player.maxAmmo = 30;
-
         this.player.hasGun = false;
     }
 
@@ -96,9 +98,7 @@ class GameScene extends Phaser.Scene {
         const rifle = this.physics.add.sprite(400, 400, 'rifle');
         rifle.gunType = 'rifle';
         this.weapons.set(rifle, { type: 'rifle', ammo: 30 });
-
         rifle.setScale(0.1);
-
         this.physics.add.overlap(this.player, rifle, this.collectWeapon, null, this);
     }
 
@@ -131,9 +131,10 @@ class GameScene extends Phaser.Scene {
             this.updateAmmoText();
             weapon.destroy();
 
+            // Update player appearance while maintaining consistent collision
             this.player.setTexture('player_armed');
             this.player.hasGun = true;
-            this.player.setScale(0.3);
+            this.player.setScale(0.03); // Keep the same scale as unarmed
         }
     }
 

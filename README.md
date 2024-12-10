@@ -3,21 +3,10 @@ A simple 2D battle royale game built with Phaser 3 and Firebase.
 
 ### Quick Start
 1. Clone this repository
-2. Install Firebase CLI if you haven't:
-   bash
-   npm install -g firebase-tools
-   
-3. Login to Firebase:
-   bash
-   firebase login
-   
-4. Initialize Firebase in the project directory:
-   bash
-   firebase init hosting
-   
-5. Start local development:
-   bash
-   firebase serve
+2. Install Live Server extension
+3. Right click/two finger click on the index.html file **IN VS CODE**
+4. Click on "Open with Live Server"
+5. The game should now run in your browser and change with each new change you make
    
 
 ### Project Structure
