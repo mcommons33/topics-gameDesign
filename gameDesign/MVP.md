@@ -158,3 +158,8 @@
 - Added skins for the guns, ammo, armed player, and unarmed player
       - To change the look of each item- switch the pngs in the assets directory
       - Only rifles are visible right now, but different types of guns can be added easily by loading them in the preload() method and adjusting the spawnWeapons() method
+
+# Completed Items (by Riyan)
+- Fixed bug with armed player not moving correctly
+- Reskinned armed player to correct dimensions
+- Added skin for healing item (in assets folder as healing_item.png)
